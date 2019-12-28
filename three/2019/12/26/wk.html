@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script type="text/javascript" src="/public/js/jquery-1.12.4.js"></script>
+
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			min-width: 1500px;
+			background: url(/public/img/pearl.jpg) no-repeat;
+			background-size: 100% 100%;
+			background-attachment: fixed;
+		}
+		a{
+			text-decoration: none;
+			color: #000;
+			/*text-shadow: 2px 2px 0px pink;
+			font-size: 30px;*/
+		}
+		#djtx{
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			display: none;
+			color: pink;
+			width: 100px;
+			height: 30px;
+			/*background: #000;*/
+			margin-top: 10px;
+			margin-left: 10px;
+			/*animation: col 2s linear;*/
+		}
+		#main{
+			min-width: 600px;
+			width: 40%;
+			/*opacity: 0.3;*/
+			/*background: #fff;*/
+			/*padding-left: 30px;*/
+			text-align: center;
+			font-size: 25px;
+			line-height: 50px;
+			/*background-color: rgba(255,255,255,0.3);*/
+			
+			font-family: FangSong;
+			/*font-weight: bold;*/
+			float: left;
+		}
+		.main{
+			background-image:linear-gradient(125deg,rgba(205,133,60,0.3),rgba(184,134,11,0.1),rgba(255,255,255,0.1),rgba(255,255,255,0.1),rgba(255,255,255,0.1),rgba(255,255,255,0),rgba(255,255,255,0));
+			/*background-color: rgba(255,255,255,0.3);*/
+			/*animation: bganimation 3s infinite;*/
+			background-attachment: fixed;
+			/*text-transform:uppercase;*/
+		}
+		
+		#bt{
+			text-shadow: 2px 2px 0px pink;
+			/*margin-top: 50px;*/
+			font-size: 30px;
+			font-weight: bold;
+		}
+		#sy{
+			position: fixed;
+			/*position: absolute;*/
+			left: 0px;
+			width: 50px;
+			height: 30px;
+			font-size: 20px;
+			text-align: left;
+			font-family: FangSong;
+			line-height: 30px;
+			text-shadow: 2px 2px 0px pink;
+			background-color: rgba(255,255,255,0);
+			font-weight: bold;
+			border: none;
+			outline: none;
+		}
+		#pearl{
+			/*min-height: 900px;
+			width: 60%;*/
+			float: left;
+			/*opacity: 0.3;*/
+			/*background: #fff;*/
+			font-family: FangSong;
+			position: fixed;
+			right: 0px;
+			top: 0px;
+		}
+		#box{
+			width: 200px;
+			height: 600px;
+			opacity: 0.7;
+			background: #fff;
+			/*background: url(bz.jpg) no-repeat;*/
+			/*background-size: 100% 100%;*/
+			clear: both;
+			float: right;
+			display: none;
+			/*position: absolute;
+			right: 0px;*/
+		}
+		#btn{
+			float: right;
+			position: relative;
+			/*right: 0px;*/
+			width: 50px;
+			height: 30px;
+			/*opacity: 0.5;*/
+			text-shadow: 2px 2px 0px pink;
+			font-weight: bold;
+			background-color: rgba(255,255,255,0);
+			border: none;
+			outline: none;
+			/*background: #fff;*/
+			font-size: 20px;
+
+		}
+		#tx{
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+            position: relative;
+			margin: 20px auto;
+		}
+		
+		#tu{
+			/*line-height: 100px;*/
+			background: url(/public/img/ww.png) no-repeat;
+			background-size: 100% 100%;
+			/*margin: 20px auto;*/
+			/*text-align: center;*/
+			box-shadow: 2px 2px 0px #000;
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+            position: absolute;
+            transform-origin: left;
+            transition: all .3s;
+			/*margin-top: 20px;*/
+			/*font-size: 30px;*/
+		}
+		#zi{
+            position: absolute;
+            width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			line-height: 100px;
+			text-shadow: 2px 2px 0px pink;
+			text-align: center;
+			font-size: 30px;
+		}
+		#tu:hover{
+			transform: rotate(180deg);
+		}
+		
+		#t1{
+			line-height: 50px;
+			text-align: center;
+			font-size: 20px;
+		}
+		
+		#t1 li{
+			list-style: none;
+			/*color: #000;*/
+		}
+		#t1 li:hover{
+			
+			text-shadow: 2px 2px 0px pink;
+
+		}
+		#one,#three,#two{
+			/*margin-top: 50px;*/
+			padding: 50px;
+			/*text-align: left;*/
+		}
+		#two,#three a{
+			text-overflow: ellipsis;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+		}
+		#three{
+			text-align: left;
+		}
+		#two li{
+			text-align: left;
+			list-style: none;
+			/*color: #000;*/
+		}
+		#three li{
+			text-align: left;
+			list-style: none;
+			/*font-color: #000;*/
+		}
+		.Q{
+			width: 8%;
+			/*height: 200px;*/
+			/*background: url(/public/img/er.png) no-repeat;*/
+			/*background-size: 100% 100%;*/
+			clear: both;
+			/*background-position: right bottom;*/
+			/*right: 0px;*/
+			position: fixed;
+			bottom: 10px;
+			right: 5%;
+            animation: shake 2s infinite;
+            animation-direction:alternate;
+			/*background-attachment: fixed;*/
+			/*top: 500px;*/
+		}
+		.Q img{
+			background-size: 100% 100%;
+			width: 100%;
+		}
+		.Q:hover{
+            /*transform: rotate(15deg) ;*/
+            animation: shake 0s infinite;
+            width: 10%;
+            /*animation-direction:alternate;*/
+            /*-webkit-animation-direction:alternate;*/
+		}
+		@keyframes shake
+		{
+			0%{
+            transform: rotate(0deg) ;
+			}
+			20%{
+            transform: rotate(15deg) ;
+			}
+			/*50%{
+            transform: rotate(0deg) ;
+			}*/
+			60%{
+            transform: rotate(-15deg) ;
+			}
+			100%{
+            transform: rotate(15deg) ;
+			}
+		}
+
+	</style>
+</head>
+<body>
+
+<div id="all">
+	<div id="djtx"></div>
+	<div id="main" class="main">
+
+		<button id="sy" onclick="goBack()"><<<<</button>
+		
+
+		<div id="one">
+	<p id="bt"><a href="/three/2019/12/26/wk.html" style="text-shadow: 2px 2px 0px pink;">悟空</a></p>
+	<p style="font-size: 15px;">演唱 : 蔡翊昇（贰婶）</p>
+	<audio controls="" loop="loop" style="opacity: 0.3; outline: none;">
+  		<source src="horse.ogg" type="audio/ogg" />
+ 		<source src="/public/img/wk.mp3" type="audio/mpeg" />
+		您的浏览器不支持 audio 元素。
+	</audio>
+	<!--more-->
+		<br />你幻化的烟霞该如何形容<br />
+		一场梦怕有人惊动<br />
+		我记得水帘飞溅 老树青藤<br />
+		记得星河灿烂 自在枯荣<br />
+		山桃熟了几次 海浪打了几层<br />
+		记得你在无垠苍穹 唤我一声<br />
+		看我摇山撼海夸神通<br />
+		七十二变化无穷<br />
+		逞志纵勇闹天宫<br />
+		目上无尘目下空<br />
+		你笑了吗 你的笑在我心中<br />
+		就做你无双披靡 盖世英雄<br />
+		叹浮生种种不过流水落红<br />
+		一挥手五百年寂寞<br />
+		我了悟轮回生灭 孑然如初<br />
+		了悟福德因果 有始无终<br />
+		宿命失之何求 大道得之何用<br />
+		了悟你于红尘倥偬 送我一程<br />
+		一别烈焰焚身困樊笼<br />
+		铁丸铜汁五指峰<br />
+		八十一劫难重重<br />
+		回首前尘各西东<br />
+		你哭了吗 你的泪在我心中<br />
+		再多给我一万年 或一分钟<br />
+		却是齐天彻地人无踪<br />
+		深恩厚义去匆匆<br />
+		斗战伏魔何曾胜<br />
+		精诚所至一场空<br />
+		你知道吧 你依然在我心中<br />
+		万般过眼成空 有你便不同<br />
+		腾云驾雾 驭电驰风 来不及相逢<br />
+</div>
+
+
+
+	</div>
+
+	<div id="rigth">
+		<div id="pearl">
+
+			<div id="box">
+				<div id="tx">
+					<div id="zi">pearl</div>
+					<div id="tu"></div>
+					
+				</div>
+				
+				<div id="t1">
+					<ul>
+						<li><a href="/">🏠首页</a></li>
+						<li><a href="#">📖关于</a></li>
+						<li><a href="#">💬留言</a></li>
+						<li><a href="/fenlei.html">🔖分类</a></li>
+						<li><a href="#">💼归档</a></li>
+						<li><a href="#">💭应用</a></li>
+					</ul>
+				</div>
+
+			</div>
+
+			<button id="btn" onclick="fn()">>>></button>
+
+		</div>
+		<div class="Q">
+			<img src="/public/img/er.png">
+		</div>
+	</div>
+
+	
+
+</div>
+
+<script type="text/javascript">
+	
+	function fn()
+	{
+		var b = document.getElementById('box');
+
+		if( b.style.display == 'block')
+		{
+			b.style.display = 'none';
+		}
+		else
+		{
+			b.style.display = 'block';
+		}
+	}
+
+	$(window).on('mousedown',function(e){
+
+		var x = e.clientX + 'px';
+		var y = e.clientY + 'px';
+
+		var a = new Array('o(*￣▽￣*)o','(❤ ω ❤)','(。・∀・)ノ','w(ﾟДﾟ)w','/(ㄒoㄒ)/~~');
+
+		var b = new Array('red','green','blue','purple','#4ef','orange');
+
+		var randoma = Math.floor((Math.random()*1000000000000)%5);
+		var randomb = Math.floor((Math.random()*100000000000000)%6);
+
+		$('#djtx').css('display','block');
+		$('#djtx').css('left',x);
+		$('#djtx').css('top',y);
+		$('#djtx').css('color',b[randomb]);
+		$('#djtx').html(a[randoma]);
+		$('#djtx').hide(700);
+
+	})
+
+	function goBack(){
+		window.history.go(-1);
+	}
+
+</script>
+</body>
+</html>
