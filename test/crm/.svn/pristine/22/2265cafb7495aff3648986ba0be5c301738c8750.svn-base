@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<!-- 建立类和表的映射关系 -->
+	<class name="com.ssh.domain.SaleVisit" table="sale_visit">
+	
+		<!--建立类中的属性与表中的主键的映射关系 -->
+		<id name="visit_id" column="visit_id">
+		
+			<!--主键的生成策略 -->
+			<generator class="uuid"></generator>
+		</id>
+		
+		<!-- 建立类中的普通属性与表中的字段的映射 -->
+		<property name="visit_time" column="visit_time" />
+		<property name="visit_addr" column="visit_addr" />
+		<property name="visit_detail" column="visit_detail" />
+		<property name="visit_nexttime" column="visit_nexttime" />
+		
+		<!-- 配置与客户的关联关系 -->
+		<many-to-one name="customer" class="com.ssh.domain.Customer" column="visit_cust_id"></many-to-one>
+		<!-- 配置与用户的关联关系 -->
+		<many-to-one name="user" class="com.ssh.domain.User" column="visit_user_id"></many-to-one>
+	</class>
+</hibernate-mapping>

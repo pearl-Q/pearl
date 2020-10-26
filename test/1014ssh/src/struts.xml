@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+        
+	<struts>
+		<constant name="struts.action.extension" value="action"></constant>
+		<!-- 设置Struts2 文件上传总大小（不超过）5M -->
+		<constant name="struts.multipart.maxSize" value="5242880"></constant>
+			
+		<package name="ssh" extends="struts-default" namespace="/">
+			<!-- 定义拦截器 -->
+			<!-- <interceptors>
+				<interceptor name="privilegeInterceptor" class="com.ssh.web.interceptor.privilegeInterceptor"></interceptor>
+			</interceptors> -->
+			
+			<global-results>
+				<result name="login">/login.jsp</result>
+			</global-results>
+			
+			<action name="customer_*" class="customerAction" method="{1}">
+				<result name="saveUI">/jsp/customer/add.jsp</result>
+				<result name="saveSuccess" type="redirectAction">customer_findByPage.action</result>
+				<result name="findByPageSuccess">/jsp/customer/list.jsp</result>
+				<result name="deleteSuccess" type="redirectAction">customer_findByPage.action</result>
+				<result name="editSuccess">/jsp/customer/edit.jsp</result>
+				<result name="updateSuccess" type="redirectAction">customer_findByPage.action</result>
+				<result name="input">/jsp/customer/add.jsp</result>
+				<interceptor-ref name="defaultStack">
+					<!-- 设置] 文件上传单个大小（不超过）2M -->
+					<param name="fileUpload.maximumSize">2097152</param>
+					<!-- 设置允许文件上传类型（用逗号隔开) -->
+					<param name="fileUpload.allowedExtensions">.jpg,.png</param>
+				</interceptor-ref>
+				<!-- <interceptor-ref name="privilegeInterceptor">
+					<param name="excludeMethods">login</param>
+				</interceptor-ref> -->
+			</action>
+			<action name="user_*" class="userAction" method="{1}">
+				<result name="success">/index.jsp</result>
+				<!-- <interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="privilegeInterceptor">
+					<param name="excludeMethods">login</param>
+				</interceptor-ref> -->
+			</action>
+			<action name="baseDict_*" class="baseDictAction" method="{1}">
+			</action>
+			<action name="linkMan_*" class="linkManAction" method="{1}">
+				<result name="findByPageSuccess">/jsp/linkman/list.jsp</result>
+				<result name="saveUI">/jsp/linkman/add.jsp</result>
+				<result name="saveSuccess" type="redirectAction">linkMan_findByPage.action</result>
+				<result name="editSuccess">/jsp/linkman/edit.jsp</result>
+				<result name="updateSuccess" type="redirectAction">linkMan_findByPage.action</result>
+				<result name="deleteSuccess" type="redirectAction">linkMan_findByPage.action</result>
+			</action>
+		</package>
+	
+	</struts>

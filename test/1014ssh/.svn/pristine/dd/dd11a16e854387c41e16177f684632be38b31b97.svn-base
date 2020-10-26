@@ -1,0 +1,24 @@
+package com.ssh.dao.impl;
+
+
+import java.util.List;
+
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
+import com.ssh.dao.UserDAo;
+import com.ssh.domain.User;
+
+public class UserDaoImpl extends HibernateDaoSupport implements UserDAo {
+	public void regist(User user) {
+		this.getHibernateTemplate().save(user);
+	}
+
+	@Override
+	public User login(User user) {
+		List<User> list = (List<User>) this.getHibernateTemplate().find("from User where user_code=? and user_password=?", user.getUser_code(),user.getUser_password());
+		if(list!=null && list.size()>0) {
+			return list.get(0);
+		}
+		return null;
+	}
+}
