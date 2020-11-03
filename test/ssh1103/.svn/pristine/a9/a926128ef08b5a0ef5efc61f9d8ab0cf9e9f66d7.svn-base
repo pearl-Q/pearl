@@ -1,0 +1,11 @@
+package com.qidi.ssh.service;
+
+import java.util.List;
+
+import com.qidi.ssh.pojo.Customer;
+
+public interface CustomerService {
+	List<Customer> list();
+
+	void save(Customer customer);
+}

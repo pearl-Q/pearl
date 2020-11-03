@@ -1,0 +1,22 @@
+package com.qidi.ssh.dao.impl;
+
+import java.util.List;
+
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
+import com.qidi.ssh.dao.CustomerDao;
+import com.qidi.ssh.pojo.Customer;
+
+public class CustomerDaoImpl extends HibernateDaoSupport implements CustomerDao{
+
+	@Override
+	public List<Customer> list() {
+		return (List<Customer>) this.getHibernateTemplate().find("from Customer");
+	}
+
+	@Override
+	public void save(Customer customer) {
+		this.getHibernateTemplate().save(customer);
+	}
+
+}

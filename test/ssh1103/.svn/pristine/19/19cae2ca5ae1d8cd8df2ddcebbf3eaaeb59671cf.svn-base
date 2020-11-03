@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<!-- 建立类和表的映射关系 -->
+	<class name="com.qidi.ssh.pojo.User" table="user">
+	
+		<!--建立类中的属性与表中的主键的映射关系 -->
+		<id name="id" column="id">
+		
+			<!--主键的生成策略 -->
+			<generator class="native"></generator>
+		</id>
+		
+		<!-- 建立类中的普通属性与表中的字段的映射 -->
+		<property name="username" column="username" />
+		<property name="password" column="password" />
+		<property name="state" column="state" />
+		
+	</class>
+</hibernate-mapping>

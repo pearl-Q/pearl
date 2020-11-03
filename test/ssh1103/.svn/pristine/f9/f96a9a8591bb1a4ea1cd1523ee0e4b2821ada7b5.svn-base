@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+        
+	<struts>
+		<constant name="struts.action.extension" value="action"></constant>
+		
+		<package name="ssh" extends="struts-default" namespace="/">
+			
+			<action name="user_*" class="userAction" method="{1}">
+				<result name="success" type="redirectAction">customer_list.action</result>
+				<result name="login">/index.jsp</result>
+				<result name="registUI">/regist.jsp</result>
+			</action>
+			<action name="customer_*" class="customerAction" method="{1}">
+				<result name="listSuccess">/list.jsp</result>
+				<result name="saveSuccess"  type="redirectAction">customer_list.action</result>
+				<result name="delectSuccess"  type="redirectAction">customer_list.action</result>
+				<result name="editUI">/edit.jsp</result>
+			</action>
+		</package>
+	
+	</struts>

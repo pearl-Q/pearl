@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	
+	<!-- 需要配置 Action 为多例 -->
+	<bean id="userAction" class="com.qidi.ssh.action.UserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+	<!-- 配置 userService -->
+	<bean id="userService" class="com.qidi.ssh.service.impl.UserServiceImpl">
+		 <property name="userDao" ref="userDao"></property>
+	</bean>
+	
+	<!-- 配置 userDao -->
+	<bean id="userDao" class="com.qidi.ssh.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="customerAction" class="com.qidi.ssh.action.CustomerAction" scope="prototype">
+		<property name="customerService" ref="customerService"></property>
+	</bean>
+
+	<!-- 配置 CustomerService -->
+	<bean id="customerService" class="com.qidi.ssh.service.impl.CustomerServiceImpl">
+		 <property name="customerDao" ref="customerDao"></property>
+	</bean>
+	
+	<!-- 配置 CustomerDao -->
+	<bean id="customerDao" class="com.qidi.ssh.dao.impl.CustomerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- =========Spring 整合 Hibernate========= --> 
+	
+	<!-- 引入外部属性文件 --> 
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	
+	<!-- 配置 DBCP 连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}"></property>
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+	
+	<!-- 引入 Hibernate 配置的信息 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 注入连接池 -->
+		<property name="dataSource" ref="dataSource"></property>
+		
+		<!-- 配置 Hibernate 相关属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<!-- Hibernate 的方言:根据配置的方言生成对应的 SQL 语句 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				
+				<!-- Hibernate 显示 SQL 语句: -->
+				<prop key="hibernate.show_sql">true</prop>
+				
+				<!-- Hibernate 格式化 SQL 语句: -->
+				<prop key="hibernate.format_sql">true</prop>
+				
+				<!-- 使用 Hibernate 创建表 -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<!-- 加载映射文件 -->
+		<property name="mappingResources">
+			<list>
+				<value>com/qidi/ssh/pojo/User.hbm.xml</value> 
+				<value>com/qidi/ssh/pojo/Customer.hbm.xml</value> 
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 配置平台事务管理器 -->
+	<bean id="tracsactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 开启注解事务 --> 
+	<tx:annotation-driven transaction-manager="tracsactionManager" />
+</beans>
